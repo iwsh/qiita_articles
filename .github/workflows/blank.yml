@@ -40,7 +40,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v2.2.2
 
-      - uses: Run python script
+      - name: Run python script
         with:
           python-version: '3.x'
           architecture: 'x64'
