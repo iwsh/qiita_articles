@@ -39,9 +39,9 @@ jobs:
 
       - name: Setup Python
         uses: actions/setup-python@v2.2.2
-
-      - name: Run python script
         with:
           python-version: '3.x'
           architecture: 'x64'
+
+      - name: Run python script
         run: python .github/scripts/test.py
