@@ -30,7 +30,7 @@ Authorization: Bearer {{token}}
 
 ###
 # release article
-@item_id = XXXXXXXXXXXXXXXX
+@item_id = f20db48b7282c3a35b17
 PATCH /api/v2/items/{{item_id}} HTTP/1.1
 Content-Type: application/json
 Host: {{host}}
@@ -43,7 +43,8 @@ Authorization: Bearer {{token}}
   "private": true,
   "tags": [
     {
-      "name": "API",
+      "name": "api",
+      "versions": ["_"]
     }
   ],
   "title": "Example patched"
