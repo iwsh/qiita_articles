@@ -6,8 +6,6 @@ Authorization: Bearer {{token}}
 
 {
   "body": "# Example\n\ntesing\n\n## h2\n\n- hoge\n\n- fuga\n\n### h3\n\n1. foo\n\n1. bar\n\n#### h4\n\n##### h5\n\n###### h6",
-  "coediting": false,
-  "group_url_name": "dev",
   "private": true ,
   "tags": [
     {
@@ -51,3 +49,9 @@ Authorization: Bearer {{token}}
   ],
   "title": "Example patched"
 }
+
+
+###
+DELETE /api/v2/items/{{item_id}} HTTP/1.1
+Host: {{host}}
+Authorization: Bearer {{token}}

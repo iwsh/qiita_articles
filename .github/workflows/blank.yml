@@ -45,3 +45,5 @@ jobs:
 
       - name: Run python script
         run: python .github/scripts/test.py
+        env:
+          QIITA_TOKEN: ${{ secrets.QIITA_TOKEN }}
