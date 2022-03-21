@@ -1,4 +1,4 @@
-<!-- tags: Qiita,自動化,GitHub,GitHubAction,CI/CD -->
+<!-- tag: Qiita,自動化,GitHub,GitHubAction,CI/CD -->
 <!-- private: True -->
 
 # はじめに
