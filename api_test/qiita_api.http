@@ -20,14 +20,12 @@ Authorization: Bearer {{token}}
 }
 
 ###
-# show articles
 GET /api/v2/authenticated_user/items?page=1&per_page=20 HTTP/1.1
 Host: {{host}}
 Authorization: Bearer {{token}}
 
 
 ###
-# release article
 @item_id = f20db48b7282c3a35b17
 PATCH /api/v2/items/{{item_id}} HTTP/1.1
 Content-Type: application/json
