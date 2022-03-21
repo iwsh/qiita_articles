@@ -2,13 +2,13 @@
 import os
 import re
 import modules.qiita as qiita
-from logging import getLogger, StreamHandler, Formatter, DEBUG
+from logging import getLogger, StreamHandler, Formatter, INFO
 
 token_qiita = os.environ['QIITA_TOKEN']
 dir_articles = "articles"
 
 logger = getLogger(__name__)
-logger.setLevel(DEBUG)
+logger.setLevel(INFO)
 handler = StreamHandler()
 formatter = Formatter('%(asctime)s - %(name)s [%(levelname)s] %(message)s')
 handler.setFormatter(formatter)
@@ -53,6 +53,7 @@ def grouping_articles(df_qiita_articles):
     l_articles_local = [
         file for file in os.listdir(dir_articles) if file.endswith(".md")
     ]
+    l_articles_local.remove("README.md")
 
     logger.debug(l_articles_local)
 
