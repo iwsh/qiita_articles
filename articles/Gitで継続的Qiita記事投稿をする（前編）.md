@@ -1,5 +1,5 @@
 <!-- tag: Qiita,自動化,GitHub,GitHubAction,CICD -->
-<!-- private: True -->
+<!-- private: False -->
 
 # はじめに
 今回が初めてのQiita投稿なのですが、単純に記事を投稿するのではつまらないので、CI/CDの要領でGitで管理した記事をシームレスにQiitaに投稿することを目指したいと思います。
@@ -15,7 +15,7 @@
 
 
 # 課題
-解決が必要な技術課題は以下の3つ。
+解決が必要な技術課題は以下の2つ。
 
 1. APIによるQiitaの操作
 1. Githubの更新をトリガーに更新スクリプトを実行する方法
@@ -54,7 +54,7 @@ APIのテストツールとしては VS Code の REST Client 拡張機能を使�
 1. `.http`拡張子のファイルを作成し、VS Codeで開く
 1. `Ctrl + Alt + e` でREST Clientの環境を `qiita` に設定
 
-この `*.http` ファイルにAPIリクエストの内容を記述するとリクエストを送信するボタンが現れ、リクエストの送信ができます。
+この `*.http` ファイルにAPIリクエストの内容を記述すると`Send Request`という表示がエディタ内に現れ、クリックすることでリクエストの送信ができます。
 1ファイルの中で複数のリクエストを書く際には`###`でブロックを分割して記入します
 
 また、`{{host}}`のようにブランケット2個で囲うことにより、上記で設定した変数を利用することができます。
@@ -73,8 +73,34 @@ Content-Type: application/json; charset=utf-8
 Transfer-Encoding: chunked
 Connection: close
 Server: nginx
-
 ...(省略)
+
+{
+  "rendered_body": "...(省略)",
+  "body": "...(省略)",
+  "coediting": false,
+  "comments_count": 0,
+  "created_at": "20xx-xx-xxTxx:xx:xx+09:00",
+  "group": null,
+  "id": "d86cad756db1e4de776c",
+  "likes_count": 0,
+  "private": true,
+  "reactions_count": 0,
+  "tags": [
+    {
+      "name": "xxx",
+      "versions": []
+    }
+  ],
+  "title": "XXXXXXXXXX",
+  "updated_at": "20xx-xx-xxTxx:xx:xx+09:00",
+  "url": "(省略)",
+  "user": {
+    ...(省略)
+  },
+  "page_views_count": null,
+  "team_membership": null
+}
 ```
 
 ## 記事一覧の取得
@@ -88,14 +114,36 @@ Content-Type: application/json; charset=utf-8
 Transfer-Encoding: chunked
 Connection: close
 Server: nginx
-(中略)
+...(省略)
+
 [
-    {
-        \\ key-valueの記事情報
+  \\ 記事数だけkey-valueがリスト内に並ぶ
+  {
+    "rendered_body": "...(省略)",
+    "body": "...(省略)",
+    "coediting": false,
+    "comments_count": 0,
+    "created_at": "20xx-xx-xxTxx:xx:xx+09:00",
+    "group": null,
+    "id": "xxxxxxxxxxxxxx",
+    "likes_count": 0,
+    "private": true,
+    "reactions_count": 0,
+    "tags": [
+      {
+      "name": "xxx",
+      "versions": []
+      }
+    ],
+    "title": "XXXXXXXXXX",
+    "updated_at": "20xx-xx-xxTxx:xx:xx+09:00",
+    "url": "(省略)",
+    "user": {
+      ...(省略)
     },
-    {
-        \\ max(記事数, per_pageのクエリ)だけkey-valueがリスト内に並ぶ
-    }
+    "page_views_count": null,
+    "team_membership": null
+  }
 ]
 ```
 
@@ -110,7 +158,50 @@ Content-Type: application/json; charset=utf-8
 Transfer-Encoding: chunked
 Connection: close
 Server: nginx
+...(省略)
+
+{
+  "rendered_body": "...(省略)",
+  "body": "...(省略)",
+  "coediting": false,
+  "comments_count": 0,
+  "created_at": "20xx-xx-xxTxx:xx:xx+09:00",
+  "group": null,
+  "id": "d86cad756db1e4de776c",
+  "likes_count": 0,
+  "private": true,
+  "reactions_count": 0,
+  "tags": [
+    {
+      "name": "xxx",
+      "versions": []
+    }
+  ],
+  "title": "XXXXXXXXXX",
+  "updated_at": "20xx-xx-xxTxx:xx:xx+09:00",
+  "url": "(省略)",
+  "user": {
+    ...(省略)
+  },
+  "page_views_count": null,
+  "team_membership": null
+}
 ```
+
+## 記事の削除
+[DELETEリクエスト](https://qiita.com/api/v2/docs#delete-apiv2itemsitem_id)で記事を更新します。
+
+レスポンス内容
+
+```
+HTTP/1.1 204 No Content
+Date: Mon, 21 Mar 2022 14:46:27 GMT
+Connection: close
+Server: nginx
+...(省略)
+```
+
+DELETEのAPIリファレンスを見ると200で返ってくるように記載されていますが、実際に実行してみると204で返ってきており、レスポンスボディもありませんでした。
 
 # 続く
 後編は Github Actions を使って記事をアップロードする部分を書く予定です
