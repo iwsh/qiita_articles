@@ -50,7 +50,10 @@ def grouping_articles(df_qiita_articles):
     # TODO: title変更対応
 
     # localの記事を取得
-    l_articles_local = os.listdir(dir_articles)
+    l_articles_local = [
+        file for file in os.listdir(dir_articles) if file.endswith(".md")
+    ]
+
     logger.debug(l_articles_local)
 
     for article_local in l_articles_local:
@@ -149,8 +152,8 @@ def patch_updated_articles(l_article_info):
                              article_info["local_path"])
                 raise Exception("Failed to post an article")
             private = is_private(str_body)
-            res = qiita.patch_articles(id_article, title, str_body, token_qiita,
-                                       tags=tags, private=private)
+            res = qiita.patch_articles(id_article, title, str_body,
+                                       token_qiita, tags=tags, private=private)
             logger.debug("status_code:%s", res.status_code)
             logger.info(f"{title} updated")
     logger.info(f"{count_update} articles updated successfully")
@@ -171,7 +174,8 @@ def get_tags(str_body):
 def is_private(str_body):
     str_private = re.findall("<!-- private: (.*) -->", str_body)
     if len(str_private) == 0:
-        logger.warning("Local article is not specified whether it is private or not")
+        logger.warning(
+            "Local article is not specified whether it is private or not")
         logger.warning("uploaded as private Article.")
         private = True
     else:
