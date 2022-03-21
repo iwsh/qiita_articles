@@ -22,11 +22,19 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: check workspace
+        run: echo $GITHUB_WORKSPACE
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
       - name: Setup Python
         uses: actions/setup-python@v2.2.2
         with:
           python-version: '3.x'
           architecture: 'x64'
+
+      - name: Install python libraries
+        run: pip install -r requirements.txt
 
       - name: Run python script
         run: python .github/scripts/sync_qiita.py
