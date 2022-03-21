@@ -6,8 +6,6 @@ Authorization: Bearer {{token}}
 
 {
   "body": "# Example\n\ntesing\n\n## h2\n\n- hoge\n\n- fuga\n\n### h3\n\n1. foo\n\n1. bar\n\n#### h4\n\n##### h5\n\n###### h6",
-  "coediting": false,
-  "group_url_name": "dev",
   "private": true ,
   "tags": [
     {
@@ -22,15 +20,13 @@ Authorization: Bearer {{token}}
 }
 
 ###
-# show articles
 GET /api/v2/authenticated_user/items?page=1&per_page=20 HTTP/1.1
 Host: {{host}}
 Authorization: Bearer {{token}}
 
 
 ###
-# release article
-@item_id = XXXXXXXXXXXXXXXX
+@item_id = f20db48b7282c3a35b17
 PATCH /api/v2/items/{{item_id}} HTTP/1.1
 Content-Type: application/json
 Host: {{host}}
@@ -43,11 +39,15 @@ Authorization: Bearer {{token}}
   "private": true,
   "tags": [
     {
-      "name": "Ruby",
-      "versions": [
-        "0.0.1"
-      ]
+      "name": "api",
+      "versions": ["_"]
     }
   ],
   "title": "Example patched"
 }
+
+
+###
+DELETE /api/v2/items/{{item_id}} HTTP/1.1
+Host: {{host}}
+Authorization: Bearer {{token}}
