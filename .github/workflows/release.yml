@@ -11,7 +11,7 @@ on:
 
   # Update Qiita with "develop mode"
   push:
-    branches: [develop]
+    branches: ["develop"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
 
     # run workflow when pull-request merged
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true || ${{ github.ref_name }} == develop
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
