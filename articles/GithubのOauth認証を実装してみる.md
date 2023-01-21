@@ -1,5 +1,5 @@
 <!-- tag: OAuth,Github,React.js,fastAPI -->
-<!-- private: True -->
+<!-- private: False -->
 
 # はじめに
 
