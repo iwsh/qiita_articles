@@ -9,6 +9,10 @@ on:
     branches: [main]
     types: [closed]
 
+  # Update Qiita with "develop mode"
+  push:
+    branches: [develop]
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -40,3 +44,4 @@ jobs:
         run: python .github/scripts/sync_qiita.py
         env:
           QIITA_TOKEN: ${{ secrets.QIITA_TOKEN }}
+          REF_NAME: ${{ github.ref_name }}

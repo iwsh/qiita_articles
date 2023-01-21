@@ -115,6 +115,11 @@ def post_articles(l_article_info):
             logger.error("Cannot get tags from %s", article_info["local_path"])
             raise Exception("Failed to post an article")
         private = is_private(str_body)
+        # developへのpushの場合、新規記事は全てprivateとしてpostする
+        if os.getenv("REF_NAME") == "develop" and not private:
+            logger.info(
+                "[develop mode] New article is handled with private flag")
+            private = True
         res = qiita.post_article(title, str_body, token_qiita,
                                  tags=tags, private=private)
         logger.debug("status_code:%s", res.status_code)
@@ -123,6 +128,13 @@ def post_articles(l_article_info):
 
 
 def delete_articles(l_article_info):
+    # developへのpushの場合、削除は行わない
+    if os.getenv("REF_NAME") == "develop":
+        logger.info(
+            "[develop mode]" +
+            f"DryRun: {len(l_article_info)} articles deleted successfully"
+        )
+        return
     for article_info in l_article_info:
         title = article_info["title"]
         id_article = article_info["id"]
@@ -153,6 +165,15 @@ def patch_updated_articles(l_article_info):
                              article_info["local_path"])
                 raise Exception("Failed to post an article")
             private = is_private(str_body)
+            # developへのpushの場合、公開済みの記事のprivateフラグを維持する
+            if os.getenv("REF_NAME") == "develop":
+                private_in_qiita = is_private(qiita_article_body)
+                if private != private_in_qiita:
+                    logger.info(
+                        "[develop mode]" +
+                        f"Private flag change for {title} is ignored"
+                    )
+                    private = private_in_qiita
             res = qiita.patch_articles(id_article, title, str_body,
                                        token_qiita, tags=tags, private=private)
             logger.debug("status_code:%s", res.status_code)
