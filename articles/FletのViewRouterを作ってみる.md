@@ -7,7 +7,7 @@
 
 調べて一番出てくるのは Streamlit ですが、Python コードをサーバ側で処理するものなので、いわゆるフロントエンドとは別物ですよね。
 
-そんな中、[Flet](https://flet.dev/docs/publish/web) というフレームワークが Static website としてホスティングすることができる (WebAssembly としてブラウザ上で Python code を動かせる！!) ということで「これは面白そうだ」と触ってみたのです。
+そんな中、[Flet](https://flet.dev/docs/publish/web) というフレームワークが Static website としてホスティングすることができる (WebAssembly としてブラウザ上で Python code を動かせる！!) ということで「これは面白そうだ」と触ってみました。
 
 
 # 画面を宣言的に書きたい
